@@ -1,0 +1,5 @@
+`define ZBBOP_ANDN 7'b0110011
+
+`define ZBBF3_ANDN 3'b111
+
+`define ZBBF7_ANDN 7'b0100000

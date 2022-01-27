@@ -97,6 +97,20 @@ module sr_cpu
         .result     ( aluResult    ) 
     );
 
+    //Zbb
+    wire [31:0] zbbResult;
+    wire isZbbInstr;
+    zbb zbb (
+        .din_rs1 ( rd1 ),
+        .din_rs2 ( rd2 ),
+        .cmdOp   ( cmdOp ),
+        .cmdF3   ( cmdF3 ),
+        .cmdF7   ( cmdF7 ),
+        .dout_rd ( zbbResult ),
+        .isZbbInstr ( isZbb )
+    );
+    assign aluResult = isZbb ? zbbResult : aluResult;
+
     assign wd3 = wdSrc ? immU : aluResult;
 
     //control
