@@ -109,9 +109,11 @@ module sr_cpu
         .dout_rd ( zbbResult ),
         .isZbbInstr ( isZbb )
     );
-    assign aluResult = isZbb ? zbbResult : aluResult;
 
-    assign wd3 = wdSrc ? immU : aluResult;
+    wire [31:0] result;
+    assign result = isZbb ? zbbResult : aluResult;
+
+    assign wd3 = wdSrc ? immU : result;
 
     //control
     sr_control sm_control (
