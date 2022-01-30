@@ -27,6 +27,9 @@ module sr_cpu
     wire        wdSrc;
     wire  [2:0] aluControl;
 
+    wire isZbb;
+    wire zbbRegWrite;
+
     //instruction decode wires
     wire [ 6:0] cmdOp;
     wire [ 4:0] rd;
@@ -69,6 +72,9 @@ module sr_cpu
     wire [31:0] rd2;
     wire [31:0] wd3;
 
+    wire we3;
+    assign we3 = isZbb ? zbbRegWrite : regWrite;
+
     sm_register_file rf (
         .clk        ( clk          ),
         .a0         ( regAddr      ),
@@ -79,7 +85,7 @@ module sr_cpu
         .rd1        ( rd1          ),
         .rd2        ( rd2          ),
         .wd3        ( wd3          ),
-        .we3        ( regWrite     )
+        .we3        ( we3     )
     );
 
     //debug register access
@@ -99,7 +105,7 @@ module sr_cpu
 
     //Zbb
     wire [31:0] zbbResult;
-    wire isZbbInstr;
+    
     zbb zbb (
         .din_rs1 ( rd1 ),
         .din_rs2 ( rd2 ),
@@ -107,7 +113,8 @@ module sr_cpu
         .cmdF3   ( cmdF3 ),
         .cmdF7   ( cmdF7 ),
         .dout_rd ( zbbResult ),
-        .isZbbInstr ( isZbb )
+        .isZbbInstr ( isZbb ),
+        .regWrite (zbbRegWrite)
     );
 
     wire [31:0] result;
