@@ -11,6 +11,7 @@ module zbb (
     output reg regWrite
 );
     wire [31:0] andn = din_rs1 & ~din_rs2;
+    wire [31:0] orn  = din_rs1 | ~din_rs2;
 
     reg [31:0] clz;
     reg oneMet;
@@ -29,6 +30,7 @@ module zbb (
 
         casez( {cmdF7, cmdF3, cmdOp} )
             { `ZBBF7_ANDN, `ZBBF3_ANDN, `ZBBOP_ANDN } : dout_rd = andn;
+            { `ZBBF7_ORN,  `ZBBF3_ORN,  `ZBBOP_ORN  } : dout_rd = orn;
             { `ZBBF7_CLZ,  `ZBBF3_CLZ,  `ZBBOP_CLZ  } : dout_rd = clz;
             default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
         endcase
