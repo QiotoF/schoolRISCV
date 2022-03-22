@@ -112,6 +112,7 @@ module sr_cpu
         .cmdOp   ( cmdOp ),
         .cmdF3   ( cmdF3 ),
         .cmdF7   ( cmdF7 ),
+        .immI    ( immI[11:0] ),
         .dout_rd ( zbbResult ),
         .isZbbInstr ( isZbb ),
         .regWrite (zbbRegWrite)

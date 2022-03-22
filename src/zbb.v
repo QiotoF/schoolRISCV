@@ -38,16 +38,12 @@ module zbb (
             if (!ctzOneMet & !din_rs1[i]) ctz = ctz + 1;
             else ctzOneMet = 1'b1;
 
-        casez( {cmdF7, cmdF3, cmdOp} )
-            { `ZBBF7_ANDN, `ZBBF3_ANDN, `ZBBOP_ANDN } : dout_rd = andn;
-            { `ZBBF7_ORN,  `ZBBF3_ORN,  `ZBBOP_ORN  } : dout_rd = orn;
-            { `ZBBF7_XNOR, `ZBBF3_XNOR, `ZBBOP_XNOR } : dout_rd = xnor_;
-            default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
-        endcase
-
-        casez( {immI, cmdF3, cmdOp} )
-            { `ZBBIMMI_CLZ, `ZBBF3_CLZ, `ZBBOP_CLZ } : dout_rd = clz;
-            { `ZBBIMMI_CTZ, `ZBBF3_CTZ, `ZBBOP_CTZ } : dout_rd = ctz;
+        casex( {immI, cmdF7, cmdF3, cmdOp} )
+            { `ZBBIMMI_X, `ZBBF7_ANDN, `ZBBF3_ANDN, `ZBBOP_ANDN } : dout_rd = andn;
+            { `ZBBIMMI_X, `ZBBF7_ORN,  `ZBBF3_ORN,  `ZBBOP_ORN  } : dout_rd = orn;
+            { `ZBBIMMI_X, `ZBBF7_XNOR, `ZBBF3_XNOR, `ZBBOP_XNOR } : dout_rd = xnor_;
+            { `ZBBIMMI_CLZ, `ZBBF7_X,  `ZBBF3_CLZ,  `ZBBOP_CLZ } : dout_rd = clz;
+            { `ZBBIMMI_CTZ, `ZBBF7_X,  `ZBBF3_CTZ,  `ZBBOP_CTZ } : dout_rd = ctz;
             default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
         endcase
     end
