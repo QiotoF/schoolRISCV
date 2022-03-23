@@ -20,6 +20,8 @@ module zbb (
     reg [31:0] ctz;
     reg ctzOneMet;
 
+    reg [7:0] popCount;
+
     integer i;
 
     always @ (*) begin
@@ -38,12 +40,17 @@ module zbb (
             if (!ctzOneMet & !din_rs1[i]) ctz = ctz + 1;
             else ctzOneMet = 1'b1;
 
+        popCount = 0;
+        for (i = 0; i < 32; i = i + 1)
+            popCount = popCount + din_rs1[i];
+
         casex( {immI, cmdF7, cmdF3, cmdOp} )
             { `ZBBIMMI_X, `ZBBF7_ANDN, `ZBBF3_ANDN, `ZBBOP_ANDN } : dout_rd = andn;
             { `ZBBIMMI_X, `ZBBF7_ORN,  `ZBBF3_ORN,  `ZBBOP_ORN  } : dout_rd = orn;
             { `ZBBIMMI_X, `ZBBF7_XNOR, `ZBBF3_XNOR, `ZBBOP_XNOR } : dout_rd = xnor_;
-            { `ZBBIMMI_CLZ, `ZBBF7_X,  `ZBBF3_CLZ,  `ZBBOP_CLZ } : dout_rd = clz;
-            { `ZBBIMMI_CTZ, `ZBBF7_X,  `ZBBF3_CTZ,  `ZBBOP_CTZ } : dout_rd = ctz;
+            { `ZBBIMMI_CLZ, `ZBBF7_X,  `ZBBF3_CLZ,  `ZBBOP_CLZ }  : dout_rd = clz;
+            { `ZBBIMMI_CTZ, `ZBBF7_X,  `ZBBF3_CTZ,  `ZBBOP_CTZ }  : dout_rd = ctz;
+            { `ZBBIMMI_CPOP, `ZBBF7_X, `ZBBF3_CPOP, `ZBBOP_CPOP } : dout_rd = popCount;
             default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
         endcase
     end
