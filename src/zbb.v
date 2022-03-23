@@ -15,8 +15,15 @@ module zbb (
     wire [31:0] orn  = din_rs1 | ~din_rs2;
     wire [31:0] xnor_ = ~din_rs1 ^ din_rs2;
 
+    // max min
     wire aLargerB = $signed(din_rs1) > $signed(din_rs2);
     wire [31:0] max = aLargerB ? din_rs1 : din_rs2;
+    wire [31:0] min = aLargerB ? din_rs2 : din_rs1;
+
+    // maxu minu
+    wire aLargerBUnsigned = din_rs1 > din_rs2;
+    wire [31:0] maxu = aLargerBUnsigned ? din_rs1 : din_rs2;
+    wire [31:0] minu = aLargerBUnsigned ? din_rs2 : din_rs1;
 
     reg [31:0] clz;
     reg clzOneMet;
@@ -55,6 +62,10 @@ module zbb (
             { `ZBBIMMI_CTZ, `ZBBF7_X,  `ZBBF3_CTZ,  `ZBBOP_CTZ }  : dout_rd = ctz;
             { `ZBBIMMI_CPOP, `ZBBF7_X, `ZBBF3_CPOP, `ZBBOP_CPOP } : dout_rd = popCount;
             { `ZBBIMMI_X, `ZBBF7_MAX,  `ZBBF3_MAX,  `ZBBOP_MAX }  : dout_rd = max;
+            { `ZBBIMMI_X, `ZBBF7_MAXU, `ZBBF3_MAXU, `ZBBOP_MAXU } : dout_rd = maxu;
+            { `ZBBIMMI_X, `ZBBF7_MIN,  `ZBBF3_MIN,  `ZBBOP_MIN }  : dout_rd = min;
+            { `ZBBIMMI_X, `ZBBF7_MINU, `ZBBF3_MINU, `ZBBOP_MINU } : dout_rd = minu;
+
             default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
         endcase
     end

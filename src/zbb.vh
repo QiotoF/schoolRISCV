@@ -5,6 +5,9 @@
 `define ZBBOP_CTZ  7'b0010011
 `define ZBBOP_CPOP 7'b0010011
 `define ZBBOP_MAX  7'b0110011
+`define ZBBOP_MAXU 7'b0110011
+`define ZBBOP_MIN  7'b0110011
+`define ZBBOP_MINU 7'b0110011
 
 `define ZBBF3_ANDN 3'b111
 `define ZBBF3_ORN  3'b110
@@ -13,11 +16,17 @@
 `define ZBBF3_CTZ  3'b001
 `define ZBBF3_CPOP 3'b001
 `define ZBBF3_MAX  3'b110
+`define ZBBF3_MAXU 3'b111
+`define ZBBF3_MIN  3'b100
+`define ZBBF3_MINU 3'b101
 
 `define ZBBF7_ANDN 7'b0100000
 `define ZBBF7_ORN  7'b0100000
 `define ZBBF7_XNOR 7'b0100000
 `define ZBBF7_MAX  7'b0000101
+`define ZBBF7_MAXU 7'b0000101
+`define ZBBF7_MIN  7'b0000101
+`define ZBBF7_MINU 7'b0000101
 `define ZBBF7_X    7'bXXXXXXX
 
 `define ZBBIMMI_CLZ  12'b011000000000
