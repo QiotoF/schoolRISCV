@@ -52,6 +52,13 @@ module zbb (
     assign orcB[15:8]  = din_rs1[15:8]  == 8'b00000000 ? 8'b00000000 : 8'b11111111;
     assign orcB[23:16] = din_rs1[23:16] == 8'b00000000 ? 8'b00000000 : 8'b11111111;
     assign orcB[31:24] = din_rs1[31:24] == 8'b00000000 ? 8'b00000000 : 8'b11111111;
+
+    // rev8
+    wire [31:0] rev8;
+    assign rev8[7:0]   = din_rs1[31:24];
+    assign rev8[15:8]  = din_rs1[23:16];
+    assign rev8[23:16] = din_rs1[15:8];
+    assign rev8[31:24] = din_rs1[7:0];
     
     reg [31:0] clz;
     reg clzOneMet;
@@ -100,6 +107,7 @@ module zbb (
             { `ZBBIMMI_X, `ZBBF7_ROR,  `ZBBF3_ROR,  `ZBBOP_ROR  } : dout_rd = ror;
             { `ZBBIMMI_X, `ZBBF7_RORI, `ZBBF3_RORI, `ZBBOP_RORI } : dout_rd = rori;
             { `ZBBIMMI_ORCB, `ZBBF7_X, `ZBBF3_ORCB, `ZBBOP_ORCB } : dout_rd = orcB;
+            { `ZBBIMMI_REV8, `ZBBF7_X, `ZBBF3_REV8, `ZBBOP_REV8 } : dout_rd = rev8;
 
             default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
         endcase
