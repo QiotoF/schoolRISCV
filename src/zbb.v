@@ -46,6 +46,13 @@ module zbb (
     wire [63:0] rorImmTemp = { din_rs1, din_rs1 } >> shamt;
     wire [31:0] rori = rorImmTemp[31:0];
 
+    // orc.b
+    wire [31:0] orcB;
+    assign orcB[7:0]   = din_rs1[7:0]   == 8'b00000000 ? 8'b00000000 : 8'b11111111;
+    assign orcB[15:8]  = din_rs1[15:8]  == 8'b00000000 ? 8'b00000000 : 8'b11111111;
+    assign orcB[23:16] = din_rs1[23:16] == 8'b00000000 ? 8'b00000000 : 8'b11111111;
+    assign orcB[31:24] = din_rs1[31:24] == 8'b00000000 ? 8'b00000000 : 8'b11111111;
+    
     reg [31:0] clz;
     reg clzOneMet;
     reg [31:0] ctz;
@@ -92,6 +99,7 @@ module zbb (
             { `ZBBIMMI_X, `ZBBF7_ROL,  `ZBBF3_ROL,  `ZBBOP_ROL  } : dout_rd = rol;
             { `ZBBIMMI_X, `ZBBF7_ROR,  `ZBBF3_ROR,  `ZBBOP_ROR  } : dout_rd = ror;
             { `ZBBIMMI_X, `ZBBF7_RORI, `ZBBF3_RORI, `ZBBOP_RORI } : dout_rd = rori;
+            { `ZBBIMMI_ORCB, `ZBBF7_X, `ZBBF3_ORCB, `ZBBOP_ORCB } : dout_rd = orcB;
 
             default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
         endcase
