@@ -34,6 +34,11 @@ module zbb (
     // zext.h
     wire [31:0] zextH = { {16{ 1'b0 }}, din_rs1[15:0] };
 
+    // rol
+    wire [4:0] shamt = din_rs2[4:0];
+    wire [63:0] rolTemp = { din_rs1, din_rs1 } << shamt;
+    wire [31:0] rol = rolTemp[63:32];
+
     reg [31:0] clz;
     reg clzOneMet;
     reg [31:0] ctz;
@@ -77,6 +82,7 @@ module zbb (
             { `ZBBIMMI_SEXTB, `ZBBF7_X,`ZBBF3_SEXTB,`ZBBOP_SEXTB} : dout_rd = sextB;
             { `ZBBIMMI_SEXTH, `ZBBF7_X,`ZBBF3_SEXTH,`ZBBOP_SEXTH} : dout_rd = sextH;
             { `ZBBIMMI_ZEXTH, `ZBBF7_X,`ZBBF3_ZEXTH,`ZBBOP_ZEXTH} : dout_rd = zextH;
+            { `ZBBIMMI_X, `ZBBF7_ROL,  `ZBBF3_ROL,  `ZBBOP_ROL  } : dout_rd = rol;
 
             default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
         endcase
