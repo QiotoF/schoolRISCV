@@ -12,6 +12,8 @@
 `define ZBBOP_SEXTH 7'b0010011
 `define ZBBOP_ZEXTH 7'b0110011
 `define ZBBOP_ROL   7'b0110011
+`define ZBBOP_ROR   7'b0110011
+`define ZBBOP_RORI  7'b0010011
 
 `define ZBBF3_ANDN 3'b111
 `define ZBBF3_ORN  3'b110
@@ -27,6 +29,8 @@
 `define ZBBF3_SEXTH 3'b001
 `define ZBBF3_ZEXTH 3'b100
 `define ZBBF3_ROL   3'b001
+`define ZBBF3_ROR   3'b101
+`define ZBBF3_RORI  3'b101
 
 `define ZBBF7_ANDN 7'b0100000
 `define ZBBF7_ORN  7'b0100000
@@ -36,6 +40,8 @@
 `define ZBBF7_MIN  7'b0000101
 `define ZBBF7_MINU 7'b0000101
 `define ZBBF7_ROL  7'b0110000
+`define ZBBF7_ROR  7'b0110000
+`define ZBBF7_RORI 7'b0110000
 `define ZBBF7_X    7'bXXXXXXX
 
 `define ZBBIMMI_CLZ  12'b011000000000

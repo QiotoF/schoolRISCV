@@ -34,10 +34,17 @@ module zbb (
     // zext.h
     wire [31:0] zextH = { {16{ 1'b0 }}, din_rs1[15:0] };
 
-    // rol
+    // rol ror
     wire [4:0] shamt = din_rs2[4:0];
     wire [63:0] rolTemp = { din_rs1, din_rs1 } << shamt;
     wire [31:0] rol = rolTemp[63:32];
+    wire [63:0] rorTemp = { din_rs1, din_rs1 } >> shamt;
+    wire [31:0] ror = rorTemp[31:0];
+
+    // rori
+    wire [4:0] shamtImm = immI[4:0];
+    wire [63:0] rorImmTemp = { din_rs1, din_rs1 } >> shamt;
+    wire [31:0] rori = rorImmTemp[31:0];
 
     reg [31:0] clz;
     reg clzOneMet;
@@ -83,6 +90,8 @@ module zbb (
             { `ZBBIMMI_SEXTH, `ZBBF7_X,`ZBBF3_SEXTH,`ZBBOP_SEXTH} : dout_rd = sextH;
             { `ZBBIMMI_ZEXTH, `ZBBF7_X,`ZBBF3_ZEXTH,`ZBBOP_ZEXTH} : dout_rd = zextH;
             { `ZBBIMMI_X, `ZBBF7_ROL,  `ZBBF3_ROL,  `ZBBOP_ROL  } : dout_rd = rol;
+            { `ZBBIMMI_X, `ZBBF7_ROR,  `ZBBF3_ROR,  `ZBBOP_ROR  } : dout_rd = ror;
+            { `ZBBIMMI_X, `ZBBF7_RORI, `ZBBF3_RORI, `ZBBOP_RORI } : dout_rd = rori;
 
             default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
         endcase
