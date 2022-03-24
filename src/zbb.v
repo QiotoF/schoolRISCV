@@ -31,6 +31,9 @@ module zbb (
     // sext.h
     wire [31:0] sextH = { {16{ din_rs1[15] }}, din_rs1[15:0] };
 
+    // zext.h
+    wire [31:0] zextH = { {16{ 1'b0 }}, din_rs1[15:0] };
+
     reg [31:0] clz;
     reg clzOneMet;
     reg [31:0] ctz;
@@ -73,6 +76,7 @@ module zbb (
             { `ZBBIMMI_X, `ZBBF7_MINU, `ZBBF3_MINU, `ZBBOP_MINU } : dout_rd = minu;
             { `ZBBIMMI_SEXTB, `ZBBF7_X,`ZBBF3_SEXTB,`ZBBOP_SEXTB} : dout_rd = sextB;
             { `ZBBIMMI_SEXTH, `ZBBF7_X,`ZBBF3_SEXTH,`ZBBOP_SEXTH} : dout_rd = sextH;
+            { `ZBBIMMI_ZEXTH, `ZBBF7_X,`ZBBF3_ZEXTH,`ZBBOP_ZEXTH} : dout_rd = zextH;
 
             default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
         endcase
