@@ -8,8 +8,7 @@ module zbb (
     input [6:0]  cmdF7,
     input [11:0] immI,
     output reg [31:0] dout_rd,
-    output reg isZbbInstr,
-    output reg regWrite
+    output reg isZbbInstr
 );
     wire [31:0] andn = din_rs1 & ~din_rs2;
     wire [31:0] orn  = din_rs1 | ~din_rs2;
@@ -71,7 +70,6 @@ module zbb (
 
     always @ (*) begin
         isZbbInstr = 1'b1;
-        regWrite   = 1'b1;
         clzOneMet  = 1'b0;
         ctzOneMet  = 1'b0;
     
@@ -109,7 +107,7 @@ module zbb (
             { `ZBBIMMI_ORCB, `ZBBF7_X, `ZBBF3_ORCB, `ZBBOP_ORCB } : dout_rd = orcB;
             { `ZBBIMMI_REV8, `ZBBF7_X, `ZBBF3_REV8, `ZBBOP_REV8 } : dout_rd = rev8;
 
-            default : begin isZbbInstr = 1'b0; regWrite = 1'b0; end
+            default : begin isZbbInstr = 1'b0; end
         endcase
     end
 
