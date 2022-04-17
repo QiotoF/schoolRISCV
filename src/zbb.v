@@ -70,9 +70,22 @@ module zbb (
                   din_rs1[24] + din_rs1[25] + din_rs1[26] + din_rs1[27] +
                   din_rs1[28] + din_rs1[29] + din_rs1[30] + din_rs1[31];
 
+    // clz
+    wire [4:0] clzTemp;
+    assign clzTemp[4] = din_rs1[31:16] == 16'b0;
+    wire [15:0] val16 = clzTemp[4] ? din_rs1[15:0] : din_rs1[31:16];
+    assign clzTemp[3] = (val16[15:8] == 8'b0);
+    wire [7:0] val8  = clzTemp[3] ? val16[7:0] : val16[15:8];
+    assign clzTemp[2] = (val8[7:4] == 4'b0);
+    wire [3:0] val4  = clzTemp[2] ? val8[3:0] : val8[7:4];
+    assign clzTemp[1] = (val4[3:2] == 2'b0);
+    assign clzTemp[0] = clzTemp[1] ?  ~val4[1] : ~val4[3];
+    wire inputAllZeros = din_rs1 == 32'b0;
+    wire [31:0] clz = inputAllZeros ? 32 : {27'b0, clzTemp};
+
     
-    reg [31:0] clz;
-    reg clzOneMet;
+    // reg [31:0] clz;
+    // reg clzOneMet;
     reg [31:0] ctz;
     reg ctzOneMet;
 
@@ -80,13 +93,13 @@ module zbb (
 
     always @ (*) begin
         isZbbInstr = 1'b1;
-        clzOneMet  = 1'b0;
+        // clzOneMet  = 1'b0;
         ctzOneMet  = 1'b0;
     
-        clz = 32'b0;
-        for (i = 31; i >= 0; i = i - 1)
-            if (!clzOneMet & !din_rs1[i]) clz = clz + 1;
-            else clzOneMet = 1'b1;
+        // clz = 32'b0;
+        // for (i = 31; i >= 0; i = i - 1)
+        //     if (!clzOneMet & !din_rs1[i]) clz = clz + 1;
+        //     else clzOneMet = 1'b1;
         
         ctz = 32'b0;
         for (i = 0; i < 32; i = i + 1)
