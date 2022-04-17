@@ -70,41 +70,37 @@ module zbb (
                   din_rs1[24] + din_rs1[25] + din_rs1[26] + din_rs1[27] +
                   din_rs1[28] + din_rs1[29] + din_rs1[30] + din_rs1[31];
 
+
+    wire inputAllZeros = din_rs1 == 32'b0;
+
     // clz
     wire [4:0] clzTemp;
-    assign clzTemp[4] = din_rs1[31:16] == 16'b0;
-    wire [15:0] val16 = clzTemp[4] ? din_rs1[15:0] : din_rs1[31:16];
-    assign clzTemp[3] = (val16[15:8] == 8'b0);
-    wire [7:0] val8  = clzTemp[3] ? val16[7:0] : val16[15:8];
-    assign clzTemp[2] = (val8[7:4] == 4'b0);
-    wire [3:0] val4  = clzTemp[2] ? val8[3:0] : val8[7:4];
-    assign clzTemp[1] = (val4[3:2] == 2'b0);
-    assign clzTemp[0] = clzTemp[1] ?  ~val4[1] : ~val4[3];
-    wire inputAllZeros = din_rs1 == 32'b0;
+    assign clzTemp[4]    = din_rs1[31:16] == 16'b0;
+    wire [15:0] clzVal16 = clzTemp[4] ? din_rs1[15:0] : din_rs1[31:16];
+    assign clzTemp[3]    = clzVal16[15:8] == 8'b0;
+    wire [7:0] clzVal8   = clzTemp[3] ? clzVal16[7:0] : clzVal16[15:8];
+    assign clzTemp[2]    = clzVal8[7:4] == 4'b0;
+    wire [3:0] clzVal4   = clzTemp[2] ? clzVal8[3:0] : clzVal8[7:4];
+    assign clzTemp[1]    = clzVal4[3:2] == 2'b0;
+    assign clzTemp[0]    = clzTemp[1] ?  ~clzVal4[1] : ~clzVal4[3];
+    
     wire [31:0] clz = inputAllZeros ? 32 : {27'b0, clzTemp};
 
-    
-    // reg [31:0] clz;
-    // reg clzOneMet;
-    reg [31:0] ctz;
-    reg ctzOneMet;
+    // ctz
+    wire [4:0] ctzTemp;
+    assign ctzTemp[4]    = din_rs1[15:0] == 16'b0;
+    wire [15:0] ctzVal16 = ctzTemp[4] ? din_rs1[31:16] : din_rs1[15:0];
+    assign ctzTemp[3]    = ctzVal16[7:0] == 8'b0;
+    wire [7:0] ctzVal8   = ctzTemp[3] ? ctzVal16[15:8] : ctzVal16[7:0];
+    assign ctzTemp[2]    = ctzVal8[3:0] == 4'b0;
+    wire [3:0] ctzVal4   = ctzTemp[2] ? ctzVal8[7:4] : ctzVal8[3:0];
+    assign ctzTemp[1]    = ctzVal4[1:0] == 2'b0;
+    assign ctzTemp[0]    = ctzTemp[1] ? ~ctzVal4[3] : ~ctzVal4[1];
 
-    integer i;
+    wire [31:0] ctz = inputAllZeros ? 32 : {27'b0, ctzTemp};
 
     always @ (*) begin
         isZbbInstr = 1'b1;
-        // clzOneMet  = 1'b0;
-        ctzOneMet  = 1'b0;
-    
-        // clz = 32'b0;
-        // for (i = 31; i >= 0; i = i - 1)
-        //     if (!clzOneMet & !din_rs1[i]) clz = clz + 1;
-        //     else clzOneMet = 1'b1;
-        
-        ctz = 32'b0;
-        for (i = 0; i < 32; i = i + 1)
-            if (!ctzOneMet & !din_rs1[i]) ctz = ctz + 1;
-            else ctzOneMet = 1'b1;
 
         casex( {immI, cmdF7, cmdF3, cmdOp} )
             { `ZBBIMMI_X, `ZBBF7_ANDN, `ZBBF3_ANDN, `ZBBOP_ANDN } : dout_rd = andn;
