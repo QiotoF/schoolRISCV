@@ -45,17 +45,23 @@ start:      lui x1, 0xB92F0
 
             ## rotate x1 left by x17
             ## expected 0x25e09437
+            ## CORRECT
             li  x17, 0x5
             rol x18, x1, x17
 
             ## rotate x1 right by x17
             ## expected 0xdc97825
+            ## CORRECT
             ror x19, x1, x17
 
             ## rotate x1 right by immediate
             ## expected 0xdc97825
             ## INCORRECT NOT COMPILING CHECK RARS IMPLEMENTATION
             ## rori x20, x1, 0x5
+
+            ## bitwise OR-Combine
+            ## expected 0x00FFFF00
+            orcb x21, x6
 
 
 
