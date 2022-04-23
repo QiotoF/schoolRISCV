@@ -1,9 +1,12 @@
             .text
 
-start:      addi x5, zero, 0xA8
-            addi x6, zero, 0xF1
-            andn x7, x5, x6
-            orn  x9, x5, x6
-            xnor x10,x5, x6
-            clz  x8,  x7
-            ctz  x11, x7
+start:      lui x1, 0xB92F0
+            li  x2, 0x04A1
+            or  x1, x1, x2  ## x1 = 0xB92F04A1
+
+            lui x2, 0x40AC0
+            li  x3, 0x8810
+            or  x2, x2, x3  ##  x2 = 0x40AC8810
+                            ## ~x2 = 0xBF5377EF
+
+            andn x3, x1, x2 ## x3 = x1 andn x2 (expected 0xb90304a1)
