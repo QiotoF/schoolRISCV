@@ -61,7 +61,13 @@ start:      lui x1, 0xB92F0
 
             ## bitwise OR-Combine
             ## expected 0x00FFFF00
+            ## CORRECT
+            ## WARNING: fix instruction mnemonics in RARS
             orcb x21, x6
+
+            ## bit-reverse x1
+            ## expected 0xa1042fb9
+            rev8 x22, x1
 
 
 
