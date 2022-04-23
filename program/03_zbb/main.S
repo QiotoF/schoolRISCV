@@ -23,4 +23,39 @@ start:      lui x1, 0xB92F0
 
             cpop x9, x1      ## x9 = cpop(x1) (expected 0xe) INCORRECT acutual value = 0x0
 
-            
+            max  x10, x1, x2 ## x10 = max(x1, x2)  (expected 0x40AC8810) CORRECT
+            maxu x11, x1, x2 ## x11 = maxu(x1, x2) (expected 0xB92F04A1) CORRECT
+            min  x12, x1, x2 ## x12 = min(x1, x2)  (expected 0xB92F04A1) CORRECT
+            minu x13, x1, x2 ## x13 = minu(x1, x2) (expected 0x40AC8810) CORRECT
+
+            ## sign-extend least significant byte
+            ## expected 0xffffffa1
+            ## CORRECT
+            sext.b x14, x1  
+
+            ## sign-extend least significant half-word
+            ## expected 0x4a1
+            ## CORRECT
+            sext.h x15, x1
+
+            ## zero-extend least significant half-word
+            ## expected 0x401
+            ## INCORRECT (probably fucked up encoding)
+            zext.h x16, x1
+
+            ## rotate x1 left by x17
+            ## expected 0x25e09437
+            li  x17, 0x5
+            rol x18, x1, x17
+
+            ## rotate x1 right by x17
+            ## expected 0xdc97825
+            ror x19, x1, x17
+
+            ## rotate x1 right by immediate
+            ## expected 0xdc97825
+            ## INCORRECT NOT COMPILING CHECK RARS IMPLEMENTATION
+            ## rori x20, x1, 0x5
+
+
+
