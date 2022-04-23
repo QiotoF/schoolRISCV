@@ -10,9 +10,11 @@ module zbb (
     output reg [31:0] dout_rd,
     output reg isZbbInstr
 );
+
+    // andn orn xnor
     wire [31:0] andn = din_rs1 & ~din_rs2;
     wire [31:0] orn  = din_rs1 | ~din_rs2;
-    wire [31:0] xnor_ = ~din_rs1 ^ din_rs2;
+    wire [31:0] xnor_ = ~(din_rs1 ^ din_rs2);
 
     // max min
     wire aLargerB = $signed(din_rs1) > $signed(din_rs2);
