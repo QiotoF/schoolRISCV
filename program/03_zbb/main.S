@@ -19,9 +19,9 @@ start:      lui x1, 0xB92F0
 
             clz x7, x6       ## x7 = clz(x6) (expected 0xf) CORRECT
 
-            ctz x8, x6       ## x8 = ctz(x6) (expected 0xc) INCORRECT actual value = 0xd
+            ctz x8, x6       ## x8 = ctz(x6) (expected 0xc) CORRECT
 
-            cpop x9, x1      ## x9 = cpop(x1) (expected 0xe) INCORRECT acutual value = 0x0
+            cpop x9, x1      ## x9 = cpop(x1) (expected 0xe) CORRECT
 
             max  x10, x1, x2 ## x10 = max(x1, x2)  (expected 0x40AC8810) CORRECT
             maxu x11, x1, x2 ## x11 = maxu(x1, x2) (expected 0xB92F04A1) CORRECT
@@ -39,8 +39,8 @@ start:      lui x1, 0xB92F0
             sext.h x15, x1
 
             ## zero-extend least significant half-word
-            ## expected 0x401
-            ## INCORRECT (probably fucked up encoding)
+            ## expected 0x4a1
+            ## CORRECT
             zext.h x16, x1
 
             ## rotate x1 left by x17
@@ -56,7 +56,7 @@ start:      lui x1, 0xB92F0
 
             ## rotate x1 right by immediate
             ## expected 0xdc97825
-            ## INCORRECT NOT COMPILING CHECK RARS IMPLEMENTATION
+            ## CORRECT
             rori x20, x1, 0x5
 
             ## bitwise OR-Combine

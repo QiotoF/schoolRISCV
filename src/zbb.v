@@ -97,7 +97,7 @@ module zbb (
     assign ctzTemp[2]    = ctzVal8[3:0] == 4'b0;
     wire [3:0] ctzVal4   = ctzTemp[2] ? ctzVal8[7:4] : ctzVal8[3:0];
     assign ctzTemp[1]    = ctzVal4[1:0] == 2'b0;
-    assign ctzTemp[0]    = ctzTemp[1] ? ~ctzVal4[3] : ~ctzVal4[1];
+    assign ctzTemp[0]    = ctzTemp[1] ? ~ctzVal4[2] : ~ctzVal4[0];
 
     wire [31:0] ctz = inputAllZeros ? 32 : {27'b0, ctzTemp};
 
