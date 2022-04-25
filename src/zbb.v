@@ -44,7 +44,7 @@ module zbb (
 
     // rori
     wire [4:0] shamtImm = immI[4:0];
-    wire [63:0] rorImmTemp = { din_rs1, din_rs1 } >> shamt;
+    wire [63:0] rorImmTemp = { din_rs1, din_rs1 } >> shamtImm;
     wire [31:0] rori = rorImmTemp[31:0];
 
     // orc.b

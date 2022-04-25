@@ -125,7 +125,7 @@ module sm_testbench;
 
             { `ZBBIMMI_X, `ZBBF7_ROL,  `ZBBF3_ROL,  `ZBBOP_ROL  } : $write ("rol $%1d, $%1d, $%1d", rd, rs1, rs2);
             { `ZBBIMMI_X, `ZBBF7_ROR,  `ZBBF3_ROR,  `ZBBOP_ROR  } : $write ("ror $%1d, $%1d, $%1d", rd, rs1, rs2);
-            { `ZBBIMMI_X, `ZBBF7_RORI, `ZBBF3_RORI, `ZBBOP_RORI } : $write ("rori $%1d, $%1d, $%1d", rd, rs1, shamt);
+            { `ZBBIMMI_X, `ZBBF7_RORI, `ZBBF3_RORI, `ZBBOP_RORI } : $write ("rori $%1d, $%1d, %1d", rd, rs1, shamt);
 
             { `ZBBIMMI_ORCB, `ZBBF7_X, `ZBBF3_ORCB, `ZBBOP_ORCB } : $write ("orc.b $%1d, $%1d", rd, rs1);
 

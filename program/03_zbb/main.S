@@ -57,16 +57,16 @@ start:      lui x1, 0xB92F0
             ## rotate x1 right by immediate
             ## expected 0xdc97825
             ## INCORRECT NOT COMPILING CHECK RARS IMPLEMENTATION
-            ## rori x20, x1, 0x5
+            rori x20, x1, 0x5
 
             ## bitwise OR-Combine
             ## expected 0x00FFFF00
             ## CORRECT
-            ## WARNING: fix instruction mnemonics in RARS
-            orcb x21, x6
+            orc.b x21, x6
 
             ## bit-reverse x1
             ## expected 0xa1042fb9
+            ## CORRECT
             rev8 x22, x1
 
 
