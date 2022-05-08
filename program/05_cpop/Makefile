@@ -27,7 +27,7 @@ clean:
 # make rars
 #  java -jar ../common/rars1_4.jar & - run rars1_4.jar application using java machine
 #									   in background
-RARS = java -jar ../common/rars1_4.jar
+RARS = java -jar ../common/rars_zbb.jar
 rars:
 	$(RARS) &
 
