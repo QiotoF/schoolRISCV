@@ -20,7 +20,7 @@ start:      lui x1, 0xB92F0
             orn  x4, x1, x2
 
             ## x5 = x1 xnor x2
-            ## expected 0x067c734f 
+            ## expected 0x067c734e
             ## CORRECT
             xnor x5, x1, x2
 
