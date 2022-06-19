@@ -1,4 +1,4 @@
-# schoolRISCV
+# schoolRISCV Zbb - Basic Bit Manipulation Unit extension added
 
 Tiny RISCV CPU. Originally based on Sarah L. Harris MIPS CPU ("Digital Design and Computer Arhitecture" by David Money Harris and Sarah L Harris) and [schoolMIPS](https://github.com/MIPSfpga/schoolMIPS) project. Supports only a subset of RISCV commands.
 
