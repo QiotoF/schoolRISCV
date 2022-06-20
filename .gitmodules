@@ -1,0 +1,4 @@
+[submodule "rars"]
+	path = rars
+	url = https://github.com/markoved/rars.git
+	branch = zbb
