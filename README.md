@@ -2,7 +2,7 @@
 
 Tiny RISCV CPU. Originally based on Sarah L. Harris MIPS CPU ("Digital Design and Computer Arhitecture" by David Money Harris and Sarah L Harris) and [schoolMIPS](https://github.com/MIPSfpga/schoolMIPS) project. Supports only a subset of RISCV commands.
 
-![schoolRISCV](https://raw.githubusercontent.com/wiki/zhelnio/schoolRISCV/img/schoolRISCV.gif)
+![schoolRISCV](https://user-images.githubusercontent.com/27900888/174551696-2ef58b53-098f-41be-b09c-2fedb775acb9.jpg)
 
 ## Docs
 
