@@ -17,5 +17,8 @@ The BBMU supports following instructions:
 - orc.b
 - rev8
 
+The benchmarks directory contains a set of small benchmark programs that can be compiled with *-march=rv32i_zbb* compiler option to demonstrate real world applications of basic bit manipulation instructions.
+
 ## RARS
+
 The project includes modifications to the [RARS open-source Assembler and Runtime Simulator](https://github.com/TheThirdOne/rars) which is used in the schoolRISCV project to convert assembly code to low-level machine code. Modifications include adding Zbb instructions support.
