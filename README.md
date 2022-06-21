@@ -1,17 +1,18 @@
 # schoolRISCV Zbb - Basic Bit Manipulation Unit extension added
 
-Tiny RISCV CPU. Originally based on Sarah L. Harris MIPS CPU ("Digital Design and Computer Arhitecture" by David Money Harris and Sarah L Harris) and [schoolMIPS](https://github.com/MIPSfpga/schoolMIPS) project. Supports only a subset of RISCV commands.
+[Original schoolRISCV project](https://github.com/zhelnio/schoolRISCV)
 
+This project adds the Basic Bit Manipulation Unit (BBMU) to the schoolRISCV CPU. The BBMU implements the [Zbb extension](https://github.com/riscv/riscv-bitmanip/releases/download/1.0.0/bitmanip-1.0.0.pdf) of the RISC-V Instruction Set Architecture.
+
+The picture below illustrates the modified datapath of the schoolRISCV core.
 ![schoolRISCV](https://user-images.githubusercontent.com/27900888/174551696-2ef58b53-098f-41be-b09c-2fedb775acb9.jpg)
 
-## Docs
-
-[HDL Tools Install](install/readme.md)
-
-[Videos (Russian)](https://www.youtube.com/watch?v=w1F6aHfiuZ0&list=PL7J5ZgBGsxn6rquSuWO07kUk_YJrQnXec)
-
-[Slides (Russian)](https://raw.githubusercontent.com/wiki/zhelnio/schoolRISCV/doc/schoolRISCV_slides_ru.pdf)
-
-[New Instruction Example (Russian)](https://raw.githubusercontent.com/wiki/zhelnio/schoolRISCV/doc/schoolRISCV_steps_ru.pdf)
-
-[RISC-V ISA Specification](https://raw.githubusercontent.com/wiki/zhelnio/schoolRISCV/doc/riscv-spec-20191213.pdf)
+The BBMU supports following instructions:
+- andn, orn, xnor
+- clz, ctz
+- cpop
+- max, maxu, min, minu
+- sext.b, sext.h, zext.h
+- rol, ror, rori
+- orc.b
+- rev8
