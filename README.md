@@ -16,3 +16,6 @@ The BBMU supports following instructions:
 - rol, ror, rori
 - orc.b
 - rev8
+
+## RARS
+The project includes modifications to the [RARS open-source Assembler and Runtime Simulator](https://github.com/TheThirdOne/rars) which is used in the schoolRISCV project to convert assembly code to low-level machine code. Modifications include adding Zbb instructions support.
